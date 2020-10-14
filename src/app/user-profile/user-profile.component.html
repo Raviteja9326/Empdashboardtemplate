@@ -1,0 +1,46 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-4 m-auto">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title text-center">Login</h4>
+                  </div>
+                  <div class="card-body">
+                      <form [formGroup]="LoginForm">
+                          <div class="row">
+                              <div class="col-md-12">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput formControlName="Email" placeholder="Employee Email" type="text">
+                                  <mat-hint>demo@demo.com</mat-hint>
+                                  <mat-error *ngIf="LoginForm.get('Email').hasError('required')">
+                                    <sup class="required" title="Required">*</sup>Field is Required!
+                                  </mat-error>
+                                  <mat-error *ngIf="LoginForm.get('Email').hasError('email')">
+                                    <sup class="required" title="Required">*</sup>Email must be a valid email address
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                              <div class="row">
+                              <div class="col-md-12">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput formControlName="Password" placeholder="Password" type="password">
+                                  <mat-hint>demo@123</mat-hint>
+                                  <mat-error *ngIf="LoginForm.get('Password').hasError('required')">
+                                    <sup class="required" title="Required">*</sup>Field is Required!
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <diV class="text-center"> 
+                          <button mat-raised-button type="submit" class="btn btn-danger text-center"  (click)="successmsg()">Submit</button>
+                          </diV>
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

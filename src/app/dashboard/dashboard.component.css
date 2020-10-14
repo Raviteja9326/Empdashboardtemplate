@@ -1,0 +1,23 @@
+.readonly-wrapper {
+    cursor: not-allowed;
+  }
+  
+  .readonly-wrapper .readonly-block {
+    pointer-events: none;
+  }
+
+  .tbaby {
+    background-color: #eeeeee;
+    color: #343a40;
+  }
+
+  .getset {
+    text-transform: uppercase;
+    background-color: #eeeeee;
+    width: 50%;
+  }
+  .gettd {
+    font-weight: 400 !important;
+    width: 50%;
+    word-break: break-word;
+  }

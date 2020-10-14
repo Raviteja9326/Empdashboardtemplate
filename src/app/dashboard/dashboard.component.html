@@ -1,0 +1,345 @@
+<div class="main-content">
+
+<!--Add Farmer-->
+<div *ngIf="editFarmers">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-success  card-header-icon">
+              <div class="card-text">
+                <h4 class="card-title d-inline">Add Employees</h4>
+              </div>
+              <button class="btn btn-info btn-x float-right"  data-toggle="modal" data-target="#myModal">PopUp
+              </button>
+             
+            </div>
+            <form [formGroup]="FarmerForm" novalidate (ngSubmit)="CreateFarmer()">
+
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                      <mat-label>Employee Name<sup class="required" title="Required">*</sup></mat-label>
+                      <input matInput placeholder="Enter First Name" formControlName="EmployeeName" type="text"
+                        class="example-right-align" autocomplete="off">
+                      <mat-error *ngIf="FarmerForm.get('EmployeeName').hasError('required')">
+                        <sup class="required" title="Required">*</sup>Field is Required!
+                      </mat-error>
+                      <mat-error *ngIf="FarmerForm.get('EmployeeName').hasError('minlength')">
+                        <sup class="required" title="Required">*</sup>It should be atleast 4 minlength
+                        long!
+                      </mat-error>
+                      <mat-error *ngIf="FarmerForm.get('EmployeeName').hasError('maxlength')">
+                        <sup class="required" title="Required">*</sup>It can be 20 maxlenght !
+                      </mat-error>
+                      <mat-error *ngIf="FarmerForm.get('EmployeeName').hasError('pattern')">
+                        <sup class="required" title="Required">*</sup>No special Symbols and Numbers are not allowed.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col col-md-4">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                      <mat-label>Mobile Number<sup class="required" title="Required">*</sup></mat-label>
+                      <input matInput placeholder="Enter Mobile Number" formControlName="PhoneNo"
+                        (keypress)="numberOnly($event)" class="example-right-align" maxlength="10" autocomplete="off">
+                      <mat-error *ngIf="FarmerForm.get('PhoneNo').hasError('required')">
+                        <sup class="required" title="Required">*</sup>Field is Required!
+                      </mat-error>
+                      <mat-error *ngIf="FarmerForm.get('PhoneNo').hasError('minlength')">
+                        <sup class="required" title="Required">*</sup>It should be 10 digits minlength
+                        long!
+                      </mat-error>
+                      <mat-error *ngIf="FarmerForm.get('PhoneNo').hasError('pattern')">
+                        <sup class="required" title="Required">*</sup>No special Symbols and Characters are not
+                        allowed.<br /><sup class="required" title="Required">*</sup>Only 6,7,8,9 are accepted
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                      <mat-label>Country Name<sup class="required" title="Required">*</sup></mat-label>
+                      <mat-select placeholder="Select Country Name" formControlName="Country" (selectionChange)="onChangeCountry($event.value)">
+                        <mat-option *ngFor="let obj  of sCountriesData" [value]="obj.ID">
+                          {{obj.CountryName}}
+                        </mat-option>
+                      </mat-select>
+                      <!-- <mat-error *ngIf="villageForm.get('TblCountry_CountryID').hasError('required')">
+                        <sup class="required" title="Required">*</sup>Field is Required!
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field appearance="outline" floatLabel="always">
+                      <mat-label>State Name<sup class="required" title="Required">*</sup></mat-label>
+                      <mat-select placeholder="Select State Name" formControlName="State">
+                        <mat-option *ngFor="let obj of sStatesData" [value]="obj.ID">
+                          {{obj.StateName}}
+                        </mat-option>
+                      </mat-select>
+                      <!-- <mat-error *ngIf="villageForm.get('TblState_StateID').hasError('required')">
+                        <sup class="required" title="Required">*</sup>Field is Required!
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>            
+                </div>
+                <div *ngIf="datass" class="table-responsive">
+                  <table class="table">
+                    <tbody class="tbaby">
+                      <tr>
+                        <td class="
+                        getset">Salary</td>
+                        <td class="
+                        gettd">{{nadata.salary}}</td>
+                      </tr>
+                      <tr>
+                        <td class="
+                        getset">Language</td>
+                        <td class="
+                        gettd">{{nadata.lange}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="card-footer bt-group text-right d-block">
+                  <button type="button" class="btn btn-warning" (click)="tolset()">Back</button>
+                  <button type="submit" class="btn btn-success">Submit</button>
+                  <button type="reset" class="btn btn-danger" (click)="resetForm()">RESET</button>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    <div class="container-fluid" [ngStyle]="{display:displayddl}">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-success card-header-icon">
+              <div class="card-text">
+                <h4 class="card-title">{{ FarmerNames }}</h4>
+              </div>
+              <button type="button" mat-icon-button rel="tooltip" style="padding-right: 150px;" class="btn btn-lg btn-success btn-link float-right">
+                <span (click)="toleup()"><u>create Employee</u></span>
+              </button>
+            </div>
+            <div class="card-body" *ngIf="editFarmer">
+              <div>
+                <div class="row">
+                  <div class="col col-md-8"></div>
+                  <div class="col col-md-4">
+                    <mat-form-field class="search-form-field" floatLabel="left">
+                      <input matInput [(ngModel)]="secretKey" placeholder="Search" autocomplete="off"
+                        (keyup)="applyFilter()">
+                      <button mat-buttob matSuffix mat-icon-button aria-label="clear" *ngIf="secretKey"
+                        (click)="onSearchClear()">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <mat-table [dataSource]="listData" matSort>
+                  <mat-header-row class="thead-dark text-center" *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <ng-container matColumnDef="S.No">
+                    <mat-header-cell *matHeaderCellDef>S.No</mat-header-cell>
+                    <mat-cell class="celling" *matCellDef="let element; let i = index;" data-label="S.No">
+                      {{paginator.pageIndex * paginator.pageSize + i + 1}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="EmployeeName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" data-label="Name">
+                      {{element.EmployeeName}}</mat-cell>
+                  </ng-container>
+                  
+                  <ng-container matColumnDef="PhoneNo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Mobile Number
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" data-label="Mobile Number">
+                      {{element.PhoneNo}}</mat-cell>
+                  </ng-container>
+                
+                
+                  <ng-container matColumnDef="Actions">
+                    <mat-header-cell class="justify-content-center" *matHeaderCellDef>Actions</mat-header-cell>
+                    <mat-cell class="justify-content-center" data-label="Actions" *matCellDef="let getFarmersDataObj">
+                      <button type="button" mat-icon-button rel="tooltip" class="btn btn-success btn-link">
+                        <i class="material-icons" (click)="toggleUpdateFarmers(getFarmersDataObj)">edit</i>
+                      </button>
+                      <button type="button" mat-icon-button rel="tooltip" class="btn btn-danger btn-link">
+                        <i class="material-icons" (click)="deleteFarmer(getFarmersDataObj.ID)">delete_outline</i>
+                      </button>
+                    </mat-cell>
+                  </ng-container>
+                  <mat-row *matRowDef="let row; columns:displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-progress-bar *ngIf="isLoading" style="margin:0 auto;" mode="indeterminate" class="mat-spinner-color">
+                </mat-progress-bar>
+                <!--no data-->
+                <div *ngIf="displayNoRecords" style="padding:100px;">
+                  <h3 style="text-align:center">No Record Found </h3>
+                </div>
+                <!--end-->
+                <mat-paginator #paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
+                  showFirstLastButtons>
+                </mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+    
+  
+  
+    <!--update Farmer-- -->
+    <div *ngIf="updateFarmer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-success  card-header-icon">
+                <div class="card-text">
+                  <h4 class="card-title">Edit Employeee</h4>
+                </div>
+                <button class="btn btn-danger btn-x btn-sm float-right" (click)="toggleUpdateFarmer2()">
+                  <i class="material-icons">cancel</i>
+                </button>
+              </div>
+              <form id="FarmerdataValidation" [formGroup]="FarmerForm" novalidate (ngSubmit)="UpdateFarmers(Editfarm)">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Employee Name<sup class="required" title="Required">*</sup></mat-label>
+                        <input matInput placeholder="Enter First Name" formControlName="EmployeeName" type="text"
+                          class="example-right-align" autocomplete="off">
+                        <mat-error *ngIf="FarmerForm.get('EmployeeName').hasError('required')">
+                          <sup class="required" title="Required">*</sup>Field is Required!
+                        </mat-error>
+                        <mat-error *ngIf="FarmerForm.get('EmployeeName').hasError('minlength')">
+                          <sup class="required" title="Required">*</sup>It should be atleast 4 minlength
+                          long!
+                        </mat-error>
+                        <mat-error *ngIf="FarmerForm.get('EmployeeName').hasError('maxlength')">
+                          <sup class="required" title="Required">*</sup>It can be 20 maxlenght !
+                        </mat-error>
+                        <mat-error *ngIf="FarmerForm.get('EmployeeName').hasError('pattern')">
+                          <sup class="required" title="Required">*</sup>No special Symbols and Numbers are not allowed.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col col-md-4">
+                      <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Mobile Number<sup class="required" title="Required">*</sup></mat-label>
+                        <input matInput placeholder="Enter Mobile Number" formControlName="PhoneNo"
+                          (keypress)="numberOnly($event)" class="example-right-align" maxlength="10" autocomplete="off">
+                        <mat-error *ngIf="FarmerForm.get('PhoneNo').hasError('required')">
+                          <sup class="required" title="Required">*</sup>Field is Required!
+                        </mat-error>
+                        <mat-error *ngIf="FarmerForm.get('PhoneNo').hasError('minlength')">
+                          <sup class="required" title="Required">*</sup>It should be 10 digits minlength
+                          long!
+                        </mat-error>
+                        <mat-error *ngIf="FarmerForm.get('PhoneNo').hasError('pattern')">
+                          <sup class="required" title="Required">*</sup>No special Symbols and Characters are not
+                          allowed.<br /><sup class="required" title="Required">*</sup>Only 6,7,8,9 are accepted
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>Country Name<sup class="required" title="Required">*</sup></mat-label>
+                        <input matInput formControlName="Country" type="text"
+                          class="example-right-align readonly-wrapper" autocomplete="off"
+                          [value]="this.Editfarm.Country" readonly>
+                        <!-- <mat-error *ngIf="villageForm.get('TblCountry_CountryID').hasError('required')">
+                          <sup class="required" title="Required">*</sup>Field is Required!
+                        </mat-error> -->
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>State Name<sup class="required" title="Required">*</sup></mat-label>
+                        <input matInput placeholder="Enter State Name" formControlName="State" type="text"
+                        class="example-right-align readonly-wrapper" [value]="this.Editfarm.State" autocomplete="off" readonly>
+                        <!-- <mat-error *ngIf="villageForm.get('TblState_StateID').hasError('required')">
+                          <sup class="required" title="Required">*</sup>Field is Required!
+                        </mat-error> -->
+                      </mat-form-field>
+                    </div>            
+                  </div>
+                  <div class="card-footer bt-group text-right d-block">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="reset" class="btn btn-danger" (click)="resetForm()">RESET</button>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+ <!-- The Modal -->
+ <div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Extra Details</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form [formGroup]="extraForm" novalidate (ngSubmit)="Createextra()">
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Salary<sup class="required" title="Required">*</sup></mat-label>
+                  <input matInput placeholder="Enter Salary" formControlName="salary" type="text"
+                    class="example-right-align"  (keypress)="numberOnly($event)" autocomplete="off">
+                </mat-form-field>
+              </div>
+              <div class="col col-md-12">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Language<sup class="required" title="Required">*</sup></mat-label>
+                  <input matInput formControlName="lange" placeholder="Enter Language" 
+                   class="example-right-align">
+                </mat-form-field>
+              </div>
+             
+            </div>
+            <div class="card-footer bt-group text-right d-block">
+              <button type="submit" class="btn btn-success">Submit</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
